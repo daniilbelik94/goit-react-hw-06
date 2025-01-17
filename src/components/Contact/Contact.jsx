@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice'; 
 
 import { FaPhone } from 'react-icons/fa6';
 import { FaUser } from 'react-icons/fa6';
@@ -9,8 +10,7 @@ const Contact = ({ userName, userPhone, userId }) => {
   const dispatch = useDispatch();
 
   const deletContactHandler = (contactId) => {
-    const action = { type: 'contacts/deleteContacts', payload: contactId };
-    dispatch(action);
+    dispatch(deleteContact(contactId));
   };
 
   return (
@@ -25,7 +25,7 @@ const Contact = ({ userName, userPhone, userId }) => {
           <p className={styles.textNumber}>{userPhone}</p>
         </div>
       </div>
-      <button className={styles.btn} type='button' onClick={() => deletContactHandler(userId)}>
+      <button className={styles.btn} type="button" onClick={() => deletContactHandler(userId)}>
         Delete
       </button>
     </li>

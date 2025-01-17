@@ -1,10 +1,10 @@
 import { useId } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { Formik, Form, Field } from 'formik';
-import { ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import styles from './ContactForm.module.css';
 
@@ -13,12 +13,11 @@ const ContactForm = () => {
   const nameId = useId();
   const numberId = useId();
 
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    const contactsData = { ...values, id: nanoid() };
-    const action = { type: 'contacts/addContact', payload: contactsData, id: nanoid() };
-    dispath(action);
+    const contactData = { ...values, id: nanoid() };
+    dispatch(addContact(contactData));
     actions.resetForm();
   };
 
@@ -33,14 +32,14 @@ const ContactForm = () => {
         <label className={styles.label} htmlFor={nameId}>
           Name
         </label>
-        <Field className={styles.input} type='text' name='name' id={nameId} />
-        <ErrorMessage className={styles.error} name='name' component='span' />
+        <Field className={styles.input} type="text" name="name" id={nameId} />
+        <ErrorMessage className={styles.error} name="name" component="span" />
         <label className={`${styles.label} ${styles.labelNumber}`} htmlFor={numberId}>
           Number
         </label>
-        <Field className={styles.input} type='number' name='number' id={numberId} />
-        <ErrorMessage className={styles.error} name='number' component='span' />
-        <button className={styles.btn} type='submit'>
+        <Field className={styles.input} type="text" name="number" id={numberId} />
+        <ErrorMessage className={styles.error} name="number" component="span" />
+        <button className={styles.btn} type="submit">
           Add contact
         </button>
       </Form>
